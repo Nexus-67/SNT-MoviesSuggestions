@@ -1,0 +1,11 @@
+body {
+    background-image: url('https://www.example.com/ton-image.jpg'); /* Remplace par l'URL de ton image */
+    background-size: cover; /* L'image couvre toute la surface */
+    background-position: center; /* Centrer l'image */
+    background-attachment: fixed; /* L'image reste fixe lors du défilement */
+    color: white; /* Texte en blanc pour contraster avec l'image de fond */
+    font-family: 'Arial', sans-serif; /* Police de caractères */
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+}
