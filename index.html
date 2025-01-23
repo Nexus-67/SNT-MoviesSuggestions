@@ -5,14 +5,86 @@
     <meta charset="UTF-8">
     <link href="style.css" rel="stylesheet" />
     <title>CineMind</title>
+    <style>
+        body {
+            background-image: url('https://img.pikbest.com/back_our/20210717/bg/45908116bfc83.png!w700wp');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .photos-container {
+            text-align: center;
+        }
+
+        .photos-container img {
+            display: inline-block;
+            margin: 0 10px;
+            width: 150px;
+            height: auto;
+            border: 2px solid white;
+        }
+
+        .exemple {
+            text-align: left;
+            border: 2px solid white;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        p {
+            margin: 10px auto;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            display: inline-block;
+            border: 2px solid white;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .dropdown {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .dropdown select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid white;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 16px;
+        }
+    </style>
 </head>
 
-
-
-<body class="body">
+<body>
     <h1>Cinemind</h1>
     <h2>Une suggestion de film inédite !</h2>
-    <p>Ne cherchez plus quel bon film regarder ce soir, le Cinemind le trouve pour vous ! Cet outil de suggestion inédit
+    <p class="exemple">Ne cherchez plus quel bon film regarder ce soir, le Cinemind le trouve pour vous ! Cet outil de suggestion inédit
         déniche en quelques clics des idées de films selon votre humeur du moment et vos envies.
 
         Seul, en couple, avec des enfants, pour rire ou se faire peur... dites-lui quelle expérience vous recherchez et
@@ -20,27 +92,68 @@
 
         À la différence des plateformes de streaming et VOD qui vous recommandent des titres sur la base de votre
         historique, Cinematcher s'inspire de vos envies du moment et des émotions que vous souhaitez ressentir pour vous
-        faire découvrir de nouveaux horizons !</p>
+        faire découvrir de nouveaux horizons !
+    </p>
     <h2>Nos incontournables !</h2>
 
-</html>
-<img src="images/Inception.png">
-<img src="images/Interstellar.png">
-<img src="images/Avatar 2.png">
-<img src="images/Les Segpas au Ski.png">
-<img src="images/Matrix.png">
-<h2>Choisis ton film ou ta série</h2>
-<p>Film/série</p>
-<p>Thème</p>
-<p>Tes humeurs</p>
-<p>Durée</p>
-<p>Dates de sortie</p>
-<h2>Nos suggestions</h2>
-<p>Thème : Science-fiction</p>
-<p>Genre : film</p>
-<p>Ton humeur : Enthousiaste</p>
-<p>Durée : 1h30-2h10</p>
-<p>Date de sortie : 2000-2010</p>
+    <div class="photos-container">
+        <img src="https://fr.web.img2.acsta.net/c_310_420/pictures/22/11/02/14/49/4565071.jpg" alt="Inception">
+        <img src="https://fr.web.img6.acsta.net/medias/04/34/49/043449_af.jpg" alt="Interstellar">
+        <img src="https://fr.web.img3.acsta.net/pictures/23/10/24/15/24/3478223.jpg" alt="Avatar 2">
+        <img src="https://fr.web.img6.acsta.net/c_310_420/medias/nmedia/18/72/34/14/19476654.jpg" alt="Les Segpas au Ski">
+        <img src="https://fr.web.img5.acsta.net/c_310_420/pictures/14/09/24/12/08/158828.jpg" alt="Matrix">
+        <img src="https://fr.web.img5.acsta.net/medias/nmedia/18/69/69/81/19590744.jpg" alt="Harry Potter">
+        <img src="https://fr.web.img4.acsta.net/pictures/15/10/18/18/56/052074.jpg" alt="Star Wars">
+        <img src="https://fr.web.img4.acsta.net/pictures/23/04/06/15/59/0246445.jpg" alt="Snowfall">
+    </div>
+
+    <h2>Choisis ton film ou ta série</h2>
+    <div class="button-container">
+        <button onclick="generateList('film_serie')">Film/série</button>
+        <button onclick="generateList('theme')">Thème</button>
+        <button onclick="generateList('humeur')">Tes humeurs</button>
+        <button onclick="generateList('duree')">Durée</button>
+        <button onclick="generateList('date')">Dates de sortie</button>
+    </div>
+
+    <div class="dropdown" id="dropdown-container"></div>
+
+    <script>
+        function generateList(type) {
+            const container = document.getElementById('dropdown-container');
+            container.innerHTML = ''; // Clear previous content
+
+            let options = [];
+            switch (type) {
+                case 'film_serie':
+                    options = ['Film', 'Série'];
+                    break;
+                case 'theme':
+                    options = ['Amour', 'Aventure', 'Comédie', 'Drame', 'Science-fiction', 'Horreur'];
+                    break;
+                case 'humeur':
+                    options = ['Joyeux', 'Colère', 'Triste', 'Stressé(e)', 'Enthousiaste'];
+                    break;
+                case 'duree':
+                    const isFilm = document.querySelector('button[onclick*="film_serie"]').innerText === 'Film';
+                    options = isFilm ? ['1h/1h30', '1h30/2h00', '2h ou plus'] : ['15/20min', '30/45min', '45min/1h'];
+                    break;
+                case 'date':
+                    options = ['1970/1990', '1990/2010', '2010 ou plus'];
+                    break;
+            }
+
+            // Create dropdown list
+            const select = document.createElement('select');
+            options.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.innerText = option;
+                select.appendChild(opt);
+            });
+            container.appendChild(select);
+        }
+    </script>
 </body>
 
 </html>
