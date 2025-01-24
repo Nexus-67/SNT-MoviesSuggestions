@@ -25,13 +25,34 @@
             width: 150px;
             height: auto;
             border: 2px solid white;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .exemple {
-            text-align: left;
+        .photos-container img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .description {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 15px;
             border: 2px solid white;
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .trailer-container {
+            margin-top: 15px;
+        }
+
+        .trailer-container img {
+            width: 300px;
+            border-radius: 10px;
+            cursor: pointer;
         }
 
         h1, h2 {
@@ -40,118 +61,71 @@
 
         p {
             margin: 10px auto;
-            max-width: 800px;
             line-height: 1.6;
-        }
-
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .button-container button {
-            display: inline-block;
-            border: 2px solid white;
-            padding: 10px 20px;
-            margin: 5px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .button-container button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .dropdown {
-            text-align: center;
-            margin: 10px;
-        }
-
-        .dropdown select {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid white;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            font-size: 16px;
         }
     </style>
 </head>
 
 <body>
     <h1>Cinemind</h1>
-    <h2>Une suggestion de film inédite !</h2>
-    <p class="exemple">Ne cherchez plus quel bon film regarder ce soir, le Cinemind le trouve pour vous ! Cet outil de suggestion inédit
-        déniche en quelques clics des idées de films selon votre humeur du moment et vos envies.
+    <h2>Explorez nos incontournables du cinéma !</h2>
+    <p class="description">Bienvenue sur Cinemind, votre espace pour découvrir ou redécouvrir les films qui ont marqué l'histoire du cinéma.
+        Cliquez sur une affiche pour obtenir un résumé captivant avec son genre et une bande-annonce à visionner !</p>
 
-        Seul, en couple, avec des enfants, pour rire ou se faire peur... dites-lui quelle expérience vous recherchez et
-        Cinematcher trouve le film qu'il vous faut.
-
-        À la différence des plateformes de streaming et VOD qui vous recommandent des titres sur la base de votre
-        historique, Cinematcher s'inspire de vos envies du moment et des émotions que vous souhaitez ressentir pour vous
-        faire découvrir de nouveaux horizons !
-    </p>
     <h2>Nos incontournables !</h2>
 
     <div class="photos-container">
-        <img src="https://fr.web.img2.acsta.net/c_310_420/pictures/22/11/02/14/49/4565071.jpg" alt="Inception">
-        <img src="https://fr.web.img6.acsta.net/medias/04/34/49/043449_af.jpg" alt="Interstellar">
-        <img src="https://fr.web.img3.acsta.net/pictures/23/10/24/15/24/3478223.jpg" alt="Avatar 2">
-        <img src="https://fr.web.img6.acsta.net/c_310_420/medias/nmedia/18/72/34/14/19476654.jpg" alt="Les Segpas au Ski">
-        <img src="https://fr.web.img5.acsta.net/c_310_420/pictures/14/09/24/12/08/158828.jpg" alt="Matrix">
-        <img src="https://fr.web.img5.acsta.net/medias/nmedia/18/69/69/81/19590744.jpg" alt="Harry Potter">
-        <img src="https://fr.web.img4.acsta.net/pictures/15/10/18/18/56/052074.jpg" alt="Star Wars">
-        <img src="https://fr.web.img4.acsta.net/pictures/23/04/06/15/59/0246445.jpg" alt="Snowfall">
+        <img src="https://fr.web.img2.acsta.net/c_310_420/pictures/22/11/02/14/49/4565071.jpg" alt="Inception" onclick="showDescription('inception')">
+        <img src="https://fr.web.img6.acsta.net/medias/04/34/49/043449_af.jpg" alt="Interstellar" onclick="showDescription('interstellar')">
+        <img src="https://fr.web.img3.acsta.net/pictures/23/10/24/15/24/3478223.jpg" alt="Avatar 2" onclick="showDescription('avatar2')">
+        <img src="https://fr.web.img5.acsta.net/c_310_420/pictures/14/09/24/12/08/158828.jpg" alt="Matrix" onclick="showDescription('matrix')">
+        <img src="https://fr.web.img5.acsta.net/medias/nmedia/18/69/69/81/19590744.jpg" alt="Harry Potter" onclick="showDescription('harrypotter')">
+        <img src="https://fr.web.img4.acsta.net/pictures/23/04/06/15/59/0246445.jpg" alt="Snowfall" onclick="showDescription('snowfall')">
     </div>
 
-    <h2>Choisis ton film ou ta série</h2>
-    <div class="button-container">
-        <button onclick="generateList('film_serie')">Film/série</button>
-        <button onclick="generateList('theme')">Thème</button>
-        <button onclick="generateList('humeur')">Tes humeurs</button>
-        <button onclick="generateList('duree')">Durée</button>
-        <button onclick="generateList('date')">Dates de sortie</button>
-    </div>
-
-    <div class="dropdown" id="dropdown-container"></div>
+    <div id="movie-description" class="description"></div>
 
     <script>
-        function generateList(type) {
-            const container = document.getElementById('dropdown-container');
-            container.innerHTML = ''; // Clear previous content
+        function showDescription(movie) {
+            const descriptionContainer = document.getElementById('movie-description');
+            let description = '';
+            let trailer = '';
 
-            let options = [];
-            switch (type) {
-                case 'film_serie':
-                    options = ['Film', 'Série'];
+            switch (movie) {
+                case 'inception':
+                    description = "<strong>Inception</strong> (Genre : Science-fiction, Thriller) : Ce chef-d'œuvre réalisé par Christopher Nolan plonge le spectateur dans un monde où les rêves deviennent manipulables. Dom Cobb (Leonardo DiCaprio) est un voleur d'idées chargé d'accomplir une mission impossible : implanter une idée dans l'esprit d'un magnat. Avec des effets visuels à couper le souffle et une intrigue complexe, ce film questionne la frontière entre rêve et réalité.";
+                    trailer = "https://www.youtube.com/watch?v=HcoZbHBDHQA";
                     break;
-                case 'theme':
-                    options = ['Amour', 'Aventure', 'Comédie', 'Drame', 'Science-fiction', 'Horreur'];
+                case 'interstellar':
+                    description = "<strong>Interstellar</strong> (Genre : Science-fiction, Drame) : Une aventure spatiale épique réalisée par Christopher Nolan. Alors que la Terre se meurt, un groupe d'astronautes, dirigé par Cooper (Matthew McConaughey), part explorer des galaxies lointaines à la recherche d'une nouvelle planète habitable. Un récit poignant sur l'amour, le sacrifice et la survie de l'humanité, avec une bande-son inoubliable signée Hans Zimmer.";
+                    trailer = "https://www.youtube.com/watch?v=VaOijhK3CRU";
                     break;
-                case 'humeur':
-                    options = ['Joyeux', 'Colère', 'Triste', 'Stressé(e)', 'Enthousiaste'];
+                case 'avatar2':
+                    description = "<strong>Avatar 2</strong> (Genre : Science-fiction, Aventure) : James Cameron revient avec une suite visuellement spectaculaire qui explore les océans de Pandora. Jake Sully et Neytiri luttent pour protéger leur famille et leur habitat face à une menace humaine renouvelée. Un mélange parfait d'action, d'émotion et de technologie révolutionnaire.";
+                    trailer = "https://www.youtube.com/watch?v=2UEkizpGKDU";
                     break;
-                case 'duree':
-                    const isFilm = document.querySelector('button[onclick*="film_serie"]').innerText === 'Film';
-                    options = isFilm ? ['1h/1h30', '1h30/2h00', '2h ou plus'] : ['15/20min', '30/45min', '45min/1h'];
+                case 'matrix':
+                    description = "<strong>Matrix</strong> (Genre : Science-fiction, Action) : Réalisé par les Wachowski, ce film révolutionnaire propose un univers où la réalité n'est qu'une simulation créée par des machines. Neo (Keanu Reeves), un hacker, découvre sa destinée en tant qu'Élu pour libérer l'humanité. Avec ses scènes de combat stylisées et ses réflexions philosophiques, Matrix reste une œuvre incontournable.";
+                    trailer = "https://www.youtube.com/watch?v=8xx91zoASLY";
                     break;
-                case 'date':
-                    options = ['1970/1990', '1990/2010', '2010 ou plus'];
+                case 'harrypotter':
+                    description = "<strong>Harry Potter et les Reliques de la Mort</strong> (Genre : Fantastique, Aventure) : Dernier chapitre épique de la saga Harry Potter. Harry, Ron et Hermione partent à la recherche des Horcruxes pour vaincre Voldemort. Avec des batailles grandioses et une conclusion émouvante, ce film est un chef-d'œuvre pour les fans de magie.";
+                    trailer = "https://www.youtube.com/watch?v=HgZZsnleZJQ";
                     break;
+                case 'snowfall':
+                    description = "<strong>Snowfall</strong> (Genre : Drame, Crime) : Plongée captivante dans le Los Angeles des années 1980, à l'époque de l'épidémie de crack. On suit Franklin Saint, un jeune ambitieux pris dans le tourbillon de la drogue, du crime et des luttes de pouvoir. Une série marquante et intense.";
+                    trailer = "https://www.youtube.com/watch?v=0yCoLNmhJWM";
+                    break;
+                default:
+                    description = "Sélectionnez un film pour découvrir son résumé et sa bande-annonce.";
             }
 
-            // Create dropdown list
-            const select = document.createElement('select');
-            options.forEach(option => {
-                const opt = document.createElement('option');
-                opt.value = option;
-                opt.innerText = option;
-                select.appendChild(opt);
-            });
-            container.appendChild(select);
+            descriptionContainer.innerHTML = `${description}
+                <div class='trailer-container'>
+                    <a href="${trailer}" target="_blank">
+                        <img src="https://img.youtube.com/vi/${trailer.split('v=')[1]}/hqdefault.jpg" alt="Bande-annonce">
+                    </a>
+                </div>`;
         }
     </script>
 </body>
